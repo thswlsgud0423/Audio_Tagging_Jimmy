@@ -1,6 +1,9 @@
-ESC-10
-ESC-50
-ESC-50-master
-_pycache
-dataset
-processed_data
+# Ignore directories and specific datasets
+ESC-10/
+ESC-50/
+ESC-50-master/
+dataset/
+processed_data/
+
+# Ignore Python cache files
+__pycache__/
