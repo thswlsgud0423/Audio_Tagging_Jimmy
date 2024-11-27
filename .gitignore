@@ -4,6 +4,6 @@ ESC-50/
 ESC-50-master/
 dataset/
 processed_data/
-
+CRNN/
 # Ignore Python cache files
 __pycache__/
