@@ -6,6 +6,9 @@ dataset/
 processed_data/
 CRNN/
 experiments/
-Audip_Tagging
+Audip_Tagging/
+EfficientAT/
+Main_withdir/
+
 # Ignore Python cache files
 __pycache__/

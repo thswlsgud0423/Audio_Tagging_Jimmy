@@ -43,7 +43,7 @@ def train_model(model, train_loader, test_loader, device, num_epochs=25):
 
     print("Training complete!")
 
-
+"""
 def evaluate_model(model, data_loader, device):
     model.eval()
     correct = 0
@@ -59,5 +59,25 @@ def evaluate_model(model, data_loader, device):
 
     accuracy = 100 * correct / total
     return accuracy
+"""
 
+def evaluate_model(model, data_loader, device):
+    model.eval()
+    correct = 0
+    total = 0
 
+    with torch.no_grad():
+        for features, labels in data_loader:
+            features, labels = features.to(device), labels.to(device)
+            outputs = model(features)
+
+            # If the model returns a tuple, use the first element
+            if isinstance(outputs, tuple):
+                outputs = outputs[0]
+
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    accuracy = 100 * correct / total
+    return accuracy
