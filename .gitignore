@@ -12,3 +12,26 @@ Main_withdir/
 
 # Ignore Python cache files
 __pycache__/
+
+# From my professor's github
+complexity
+ex_audioset
+ex_dcase20
+ex_esc50
+ex_fsd50k
+ex_openmic
+ex_pl_audioset
+inference
+LICENSE
+README
+receptive_field_cnn
+requirements
+windowed_inference
+
+datasets/
+helpers/
+images/
+metadata/
+models/
+resources/
+wandb/

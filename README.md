@@ -29,15 +29,29 @@ For this project, I implemented feature extraction methods:
 
 ## Models and Results
 
-### CRNN
-Input Image -> CNN -> Feature Maps -> Reshape and Permute -> Linear Layer -> LSTM Layer -> Fully Connected Layer -> Class Prediction
 
 | Model Name         | Accuracy                        |
 |--------------------|---------------------------------|
-| CRNN               | 49.5%  |
-| Model 2            |   |
-| Model 3            |   |
-| Model 4            |   |
+| CRNN               | 49.5%   |
+| CNN Model 1        | 83.75%  |
+| CNN Model 2        | 89.25%  |
+
+
+## Model Details
+
+### CRNN
+Input Image -> CNN -> Feature Maps -> Reshape and Permute -> Linear Layer -> LSTM Layer -> Fully Connected Layer -> Class Prediction
+
+### CNN Model 1
+Efficient pre-trained CNN with default settings.
+
+### CNN Model 2
+Efficient pre-trained CNN with custom settings:
+    - Audio Length: 160,000
+    - n_fft: 1,024
+    - Hop Length: 320
+    - Window Length: 320
+    - n_mels: 128
 
 
 # Getting Started

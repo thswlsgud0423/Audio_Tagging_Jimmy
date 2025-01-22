@@ -10,7 +10,7 @@ from utils import pad_or_truncate
 data_dir = None
 processed_data_dir = None
 
-
+"""
 def save_mel_spectrogram_dataset(
     data_loader, split_name, save_dir, audio_length=160000,
     n_fft=2048, hop_length=512, win_length=None, n_mels=128, fmax=8000
@@ -63,8 +63,59 @@ def save_mel_spectrogram_dataset(
     np.save(os.path.join(split_save_dir, "labels.npy"), np.array(labels))
     np.save(os.path.join(split_save_dir, "features.npy"), np.array(features))
     print(f"{split_name} dataset saved in {split_save_dir}")
+"""
 
+def save_mel_spectrogram_dataset(data_loader, split_name, save_dir, config):
+    audio_length = config.get('audio_length', 160000)
 
+    n_fft = config.get('n_fft', 2048)
+    hop_length = config.get('hop_length', 512)
+    win_length = config.get('win_length', 1024)
+    n_mels = config.get('n_mels', 128)
+    fmax = config.get('fmax', 8000)
+
+    split_save_dir = os.path.join(save_dir, split_name)
+    os.makedirs(split_save_dir, exist_ok=True)
+
+    features, labels = [], []
+
+    for i, (waveform, filename, target) in tqdm(enumerate(data_loader), total=len(data_loader)):
+        if len(waveform.shape) == 3 and waveform.shape[1] == 1:
+            waveform = waveform.squeeze(1)
+        elif len(waveform.shape) == 2:
+            pass
+        else:
+            raise ValueError(f"Unexpected waveform shape: {waveform.shape}")
+
+        waveform = waveform.numpy()
+
+        for idx, audio in enumerate(waveform):
+            audio = pad_or_truncate(audio, audio_length)
+
+            mel_spectrogram = librosa.feature.melspectrogram(
+                y=audio,
+                sr=32000,
+                n_fft=n_fft,
+                hop_length=hop_length,
+                win_length=win_length,
+                n_mels=n_mels,
+                fmax=fmax
+            )
+
+            mel_spectrogram = librosa.power_to_db(mel_spectrogram, ref=np.max)
+
+            feature_filename = os.path.join(split_save_dir, f"{filename[idx]}.npy")
+            np.save(feature_filename, mel_spectrogram)
+
+            features.append(feature_filename)
+            labels.append(target[idx].numpy())
+
+    np.save(os.path.join(split_save_dir, "labels.npy"), np.array(labels))
+    np.save(os.path.join(split_save_dir, "features.npy"), np.array(features))
+    print(f"{split_name} dataset saved in {split_save_dir}")
+
+    
+"""
 if __name__ == "__main__":
     os.makedirs(processed_data_dir, exist_ok=True)
 
@@ -101,4 +152,4 @@ if __name__ == "__main__":
         test_loader, "test", processed_data_dir,
         n_fft=2048, hop_length=512, win_length=1024, n_mels=128, fmax=8000
     )
-
+"""
