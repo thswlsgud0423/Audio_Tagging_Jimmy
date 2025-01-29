@@ -33,8 +33,10 @@ For this project, I implemented feature extraction methods:
 | Model Name         | Accuracy                        |
 |--------------------|---------------------------------|
 | CRNN               | 49.5%   |
-| CNN Model 1        | 83.75%  |
-| CNN Model 2        | 89.25%  |
+| CNN Model        | 83.75%  |
+| CNN Model with epoch = 10       | 89.25%  |
+| CNN Model with epoch = 20        | 91.25%  |
+| CNN Model with epoch = 50        | 77.75%  |
 
 
 ## Model Details
@@ -42,22 +44,22 @@ For this project, I implemented feature extraction methods:
 ### CRNN
 Input Image -> CNN -> Feature Maps -> Reshape and Permute -> Linear Layer -> LSTM Layer -> Fully Connected Layer -> Class Prediction
 
-### CNN Model 1
+### CNN Model
 Efficient pre-trained CNN with default settings.
 
-### CNN Model 2
+### CNN Model
 Efficient pre-trained CNN with custom settings:
     - Audio Length: 160,000
     - n_fft: 1,024
     - Hop Length: 320
     - Window Length: 320
     - n_mels: 128
+    - num_epoch: 10 to 50
+
+### Observation
+I could clearly see that the model starts to overfitting after 20th epoch - The training accuracy was 100% but the test accuracy went down as we train more.
 
 
-# Getting Started
-##############################################################
-I saw people doing this but also will implement later :>
-##############################################################
 
 # Resources
 

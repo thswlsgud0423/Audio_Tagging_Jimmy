@@ -27,7 +27,10 @@ README
 receptive_field_cnn
 requirements
 windowed_inference
+withoptimized_parameters
+class_labels_indices
 
+EfficientAT/
 datasets/
 helpers/
 images/
