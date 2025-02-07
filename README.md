@@ -59,6 +59,46 @@ Efficient pre-trained CNN with custom settings:
 ## Observation
 I could clearly see that the model starts to overfitting after 20th epoch - The training accuracy was 100% but the test accuracy went down as we train more.
 
+## How to run
+
+### 1. Clone the Repository  
+```bash
+git clone https://github.com/thswlsgud0423/Audio_Tagging_Jimmy.git
+cd https://github.com/thswlsgud0423/Audio_Tagging_Jimmy.git
+```
+
+### 2. Install requirements.txt
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Download ESC-50 Dataset and models
+Download the dataset and models from https://github.com/karolpiczak/ESC-50 and https://github.com/fschmid56/EfficientAT
+
+### 4. Extract Mel Spectrogram Features
+```bash
+python preprocess.py --feature_type mel_spectrogram
+```
+
+
+### 5. Train the Models
+```bash
+python train.py --model crnn --train_dir "processed_data/mel_spectrogram/train" --test_dir "processed_data/mel_spectrogram/test" --epochs 20
+
+```
+
+```bash
+python train.py --model efficientat --train_dir "custom_processed_dataset/train" --test_dir "custom_processed_dataset/test" --epochs 20
+```
+
+### 6. Evaluate the Model
+```bash
+python evaluate.py --model crnn --test_dir "processed_data/mel_spectrogram/test"
+```
+
+```bash
+python evaluate.py --model efficientat --test_dir "custom_processed_dataset/test"
+```
 
 
 # Resources
@@ -68,5 +108,8 @@ https://github.com/fschmid56/EfficientAT/tree/main
 https://github.com/karolpiczak/ESC-50
 
 https://github.com/GitYCC/crnn-pytorch
+
+
+
 
 
